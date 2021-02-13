@@ -1,15 +1,15 @@
 
 function load {
 	scoreboard objectives add wc.i dummy
-	execute if data storage wc:ram {enable:{warp_pads:1b}} run function warp_pad:clock_1s
-	execute unless data storage wc:ram {enable:{warp_pads:1b}} run schedule clear warp_pad:clock_1s
+	execute if data storage wc:ram {enable:{warp_stones:1b}} run function warp_stone:clock_1s
+	execute unless data storage wc:ram {enable:{warp_stones:1b}} run schedule clear warp_stone:clock_1s
 }
 
 function disable {
-	data modify storage wc:ram enable.warp_pads set value 0b
+	data modify storage wc:ram enable.warp_stones set value 0b
 }
 function enable {
-	data modify storage wc:ram enable.warp_pads set value 1b
+	data modify storage wc:ram enable.warp_stones set value 1b
 }
 
 function clock_1s {
@@ -19,20 +19,20 @@ function clock_1s {
 		tag @s add wc.checked
 	}
 	# Execute as and at eyes of ender on the ground to check if there are on top of a warp stone construct. If there is one, create a warp stone entity
-	execute as @e[type=item,tag=wc.ender_eye,nbt={OnGround:1b}] at @s unless entity @e[type=glow_item_frame,tag=wc.warp_pad,distance=..2,limit=1] positioned ~ ~-1 ~ if block ~1 ~ ~ #minecraft:stairs if block ~-1 ~ ~ #minecraft:stairs if block ~ ~ ~1 #minecraft:stairs if block ~ ~ ~-1 #minecraft:stairs if block ~1 ~ ~1 #minecraft:slabs if block ~-1 ~ ~1 #minecraft:slabs if block ~1 ~ ~-1 #minecraft:slabs if block ~-1 ~ ~-1 #minecraft:slabs if block ~ ~ ~ minecraft:iron_block align xyz positioned ~.5 ~ ~.5 run {
+	execute as @e[type=item,tag=wc.ender_eye,nbt={OnGround:1b}] at @s unless entity @e[type=glow_item_frame,tag=wc.warp_stone,distance=..2,limit=1] positioned ~ ~-1 ~ if block ~1 ~ ~ #minecraft:stairs if block ~-1 ~ ~ #minecraft:stairs if block ~ ~ ~1 #minecraft:stairs if block ~ ~ ~-1 #minecraft:stairs if block ~1 ~ ~1 #minecraft:slabs if block ~-1 ~ ~1 #minecraft:slabs if block ~1 ~ ~-1 #minecraft:slabs if block ~-1 ~ ~-1 #minecraft:slabs if block ~ ~ ~ minecraft:iron_block align xyz positioned ~.5 ~ ~.5 run {
 		playsound minecraft:block.respawn_anchor.charge block @a ~ ~ ~ 1 0.1
 		playsound minecraft:item.lodestone_compass.lock block @a ~ ~ ~ 1 0.1
 		playsound minecraft:block.beacon.power_select block @a ~ ~ ~ 1 0.1
 		LOOP(64,i){
 			particle minecraft:end_rod ~<%Math.sin(i*360)*0.5%> ~1.25 ~<%Math.cos(i*360)*0.5%> <%Math.sin(i*360)*0.5%> -0.25 <%Math.cos(i*360)*0.5%> 0.5 0 force
 		}
-		summon glow_item_frame ~ ~1 ~ {Tags:["wc.warp_pad","wc.new"],Item:{id:"minecraft:ender_eye",Count:1b},Fixed:1b,Facing:1b,Invisible:1b,Invulnerable:1b,Silent:1b}
+		summon glow_item_frame ~ ~1 ~ {Tags:["wc.warp_stone","wc.new"],Item:{id:"minecraft:ender_eye",Count:1b},Fixed:1b,Facing:1b,Invisible:1b,Invulnerable:1b,Silent:1b}
 		kill @s
 	}
 	# Count how many warp stones exist
-	execute store result score #count wc.i if entity @e[type=glow_item_frame,tag=wc.warp_pad]
+	execute store result score #count wc.i if entity @e[type=glow_item_frame,tag=wc.warp_stone]
 	# Execute logic as all warp pad entities
-	execute as @e[type=glow_item_frame,tag=wc.warp_pad] at @s run {
+	execute as @e[type=glow_item_frame,tag=wc.warp_stone] at @s run {
 		# If there is more than one warp pad in existance
 		execute if score #count wc.i matches 2.. run {
 			# Fancy particles
@@ -42,7 +42,7 @@ function clock_1s {
 			# Warp the nearest player standing on top of the warp stone
 			execute if entity @p[distance=..0.5] run {
 				tag @p[distance=..0.5] add wc.warping
-				execute as @e[type=glow_item_frame,tag=wc.warp_pad,distance=2..,limit=1,sort=random] positioned as @s run {
+				execute as @e[type=glow_item_frame,tag=wc.warp_stone,distance=2..,limit=1,sort=random] positioned as @s run {
 					tp @a[tag=wc.warping] ~ ~.1 ~
 					tag @a remove wc.warping
 					kill @s
@@ -85,5 +85,5 @@ function clock_1s {
 		}
 	}
 	# Tick this function
-	schedule function warp_pad:clock_1s 1s
+	schedule function warp_stone:clock_1s 1s
 }
