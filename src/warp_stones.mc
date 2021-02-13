@@ -1,8 +1,8 @@
 
 function load {
 	scoreboard objectives add wc.i dummy
-	execute if data storage wc:ram {enable:{warp_stones:1b}} run function warp_stone:clock_1s
-	execute unless data storage wc:ram {enable:{warp_stones:1b}} run schedule clear warp_stone:clock_1s
+	execute if data storage wc:ram {enable:{warp_stones:1b}} run function warp_stones:clock_1s
+	execute unless data storage wc:ram {enable:{warp_stones:1b}} run schedule clear warp_stones:clock_1s
 }
 
 function disable {
@@ -85,5 +85,5 @@ function clock_1s {
 		}
 	}
 	# Tick this function
-	schedule function warp_stone:clock_1s 1s
+	schedule function warp_stones:clock_1s 1s
 }
