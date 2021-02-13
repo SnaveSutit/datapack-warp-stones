@@ -30,7 +30,7 @@ function clock_1s {
 		kill @s
 	}
 	# Count how many warp stones exist
-	execute store result score #count wc.i if entity @e[type=glow_item_frame,tag=wc.warp_pad
+	execute store result score #count wc.i if entity @e[type=glow_item_frame,tag=wc.warp_pad]
 	# Execute logic as all warp pad entities
 	execute as @e[type=glow_item_frame,tag=wc.warp_pad] at @s run {
 		# If there is more than one warp pad in existance
