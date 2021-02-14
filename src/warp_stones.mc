@@ -26,7 +26,7 @@ function clock_1s {
 		LOOP(64,i){
 			particle minecraft:end_rod ~<%Math.sin(i*360)*0.5%> ~1.25 ~<%Math.cos(i*360)*0.5%> <%Math.sin(i*360)*0.5%> -0.25 <%Math.cos(i*360)*0.5%> 0.5 0 force
 		}
-		summon glow_item_frame ~ ~1 ~ {Tags:["wc.warp_stone","wc.new"],Item:{id:"minecraft:ender_eye",Count:1b},Fixed:1b,Facing:1b,Invisible:1b,Invulnerable:1b,Silent:1b}
+		summon glow_item_frame ~ ~1 ~ {Tags:["wc.warp_stone"],Item:{id:"minecraft:ender_eye",Count:1b},Fixed:1b,Facing:1b,Invisible:1b,Invulnerable:1b,Silent:1b}
 		kill @s
 	}
 	# Count how many warp stones exist
