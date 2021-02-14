@@ -47,18 +47,17 @@ function clock_1s {
 					tag @a remove wc.warping
 					kill @s
 					# More fancy particles
-					LOOP(360,i){
-						particle minecraft:end_rod ~<%Math.sin(i*360)*0.75%> ~<%Math.tan(i)%> ~<%Math.cos(i*360)*0.75%> <%Math.sin(i*360)*0.25%> 0 <%Math.cos(i*360)*0.25%> 1 0 force
+					block {
+						name warp_particles
+						LOOP(360,i){
+							particle minecraft:end_rod ~ ~<%Math.tan(i)%> ~ <%Math.sin(i*360)*0.25%> 0 <%Math.cos(i*360)*0.25%> 1 0 force
+						}
 					}
 					stopsound @a[distance=..10] block minecraft:ambient.soul_sand_valley.mood
 					playsound minecraft:item.trident.thunder block @a ~ ~ ~ 1 2
 				}
 				# Even more fancy particles
-				LOOP(5,y){
-					LOOP(32,i){
-						particle minecraft:end_rod ~<%Math.sin(i*360)*0.75%> ~ ~<%Math.cos(i*360)*0.75%> 0 <%(y+1)*0.25%> 0 1 0 force
-					}
-				}
+				function warp_stones:warp_particles
 				playsound minecraft:item.trident.riptide_1 block @a ~ ~ ~ 1 2
 				stopsound @a[distance=..10] block minecraft:ambient.soul_sand_valley.mood
 				kill @s
