@@ -7,7 +7,7 @@ Simply download the .zip from the [releases page](https://github.com/SnaveSutit/
 ### How to compile the source code
 This data pack was built using [MC Build](https://github.com/mc-build/mc-build), a tool that greatly streamlines the process of creating data packs for vanilla minecraft.
 
-How to build this data pack:
+How to build this data pack from source:
 1. Install MCB by following the instructions [Here](https://mcbuild.dev/docs/lang-mc/Getting-Started/#installing-mc-build)
 2. Restart the command prompt
 3. Download the [source code](https://github.com/SnaveSutit/datapack-warp-stones/archive/main.zip) and unzip it
