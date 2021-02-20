@@ -13,4 +13,5 @@ How to build this data pack from source:
 3. Download the [source code](https://github.com/SnaveSutit/datapack-warp-stones/archive/main.zip) and unzip it
 4. Rename the file from `main` to `Warp Stones`
 5. Open a command prompt and navigate to the folder you just unzipped and renamed
-6. Run `mcb -build` in the command prompt. It will perform a single build, and then exit
+6. Run `mcb add lang mc-extra`in the command prompt. This will add an extra utility language to your project called `mc-extra` which allows for defining some json datapack files within a `.mc`
+7. Run `mcb -build` in the command prompt. It will perform a single build, and then exit
