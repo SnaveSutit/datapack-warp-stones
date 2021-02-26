@@ -40,10 +40,11 @@ function clock_1s {
 				particle minecraft:end_rod ~<%Math.sin(i*360)*1.4%> ~-0.5 ~<%Math.cos(i*360)*1.4%> <%Math.sin(i*360)*-0.2%> 0.3 <%Math.cos(i*360)*-0.2%> 0.25 0 force
 			}
 			# Warp the nearest player standing on top of the warp stone
-			execute if entity @p[distance=..0.5] run {
+			execute if entity @p[distance=..0.5,gamemode=!spectator] run {
 				tag @p[distance=..0.5] add wc.warping
 				execute as @e[type=glow_item_frame,tag=wc.warp_stone,distance=2..,limit=1,sort=random] positioned as @s run {
 					tp @a[tag=wc.warping] ~ ~.1 ~
+					advancement grant @a[tag=wc.warping] only mythos:portal_on_a_platter
 					tag @a remove wc.warping
 					kill @s
 					# More fancy particles
@@ -83,6 +84,7 @@ function clock_1s {
 			kill @s
 		}
 	}
+	tag @a remove wc.warping
 	# Tick this function
 	schedule function warp_stones:clock_1s 1s
 }
